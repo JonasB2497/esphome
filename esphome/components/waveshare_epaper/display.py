@@ -1,7 +1,7 @@
-import esphome.codegen as cg
-import esphome.config_validation as cv
 from esphome import core, pins
+import esphome.codegen as cg
 from esphome.components import display, spi
+import esphome.config_validation as cv
 from esphome.const import (
     CONF_BUSY_PIN,
     CONF_DC_PIN,
@@ -74,7 +74,7 @@ WaveshareEPaper7P5InBV2 = waveshare_epaper_ns.class_(
     "WaveshareEPaper7P5InBV2", WaveshareEPaper
 )
 WaveshareEPaper7P5InBV3 = waveshare_epaper_ns.class_(
-    "WaveshareEPaper7P5InBV3", WaveshareEPaper
+    "WaveshareEPaper7P5InBV3", WaveshareEPaperBWR
 )
 WaveshareEPaper7P5InV2 = waveshare_epaper_ns.class_(
     "WaveshareEPaper7P5InV2", WaveshareEPaper

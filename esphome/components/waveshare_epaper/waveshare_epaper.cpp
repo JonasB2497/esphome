@@ -2213,7 +2213,7 @@ void WaveshareEPaper7P5InBV3::init_display_() {
   this->wait_until_idle_();
   // COMMAND PANEL SETTING
   this->command(0x00);
-  this->data(0x3F);  // KW-3f   KWR-2F BWROTP 0f BWOTP 1f
+  this->data(0x0F);  // KW-3f   KWR-2F BWROTP 0f BWOTP 1f
 
   // COMMAND RESOLUTION SETTING
   this->command(0x61);
@@ -2226,7 +2226,7 @@ void WaveshareEPaper7P5InBV3::init_display_() {
   this->data(0x00);
   // COMMAND VCOM AND DATA INTERVAL SETTING
   this->command(0x50);
-  this->data(0x10);
+  this->data(0x20);
   this->data(0x00);
   // COMMAND TCON SETTING
   this->command(0x60);
@@ -2286,17 +2286,23 @@ void WaveshareEPaper7P5InBV3::init_display_() {
 };
 void HOT WaveshareEPaper7P5InBV3::display() {
   this->init_display_();
-  uint32_t buf_len = this->get_buffer_length_();
+  const uint32_t buf_len = this->get_buffer_length_() / 2u;
 
-  this->command(0x10);
+  /*this->command(0x10);
   for (uint32_t i = 0; i < buf_len; i++) {
     this->data(0xFF);
+  }*/
+
+  this->command(0x10);  // Start Transmission
+  delay(2);
+  for (uint32_t i = 0; i < buf_len; i++) {
+    this->data(this->buffer_[i]);
   }
 
   this->command(0x13);  // Start Transmission
   delay(2);
   for (uint32_t i = 0; i < buf_len; i++) {
-    this->data(~this->buffer_[i]);
+    this->data(this->buffer_[i + buf_len]);
   }
 
   this->command(0x12);  // Display Refresh
