@@ -203,6 +203,5 @@ display:
     reset_pin:
       allow_other_uses: true
       number: GPIO32
-    full_update_every: 30
     lambda: |-
       it.rectangle(0, 0, it.get_width(), it.get_height());
